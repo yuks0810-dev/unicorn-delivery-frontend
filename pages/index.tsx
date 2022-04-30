@@ -9,7 +9,7 @@ import SideBar from "../components/sideBar";
 import { lightTheme } from "../components/unicornCard";
 import UnicornCards from "../components/unicornCard";
 
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 const bull = (
   <Box
@@ -34,9 +34,8 @@ const style = {
 
 const Home: NextPage = () => {
   const [data, setData] = React.useState([]);
-  console.log(`${process.env.API_ORIGIN}/books`);
   React.useEffect(() => {
-    fetch(`${process.env.API_ORIGIN}/books`)
+    fetch(`${process.env.API_ORIGIN}/unicorns`)
       .then((res) => res.json())
       .then((response) => setData(response));
   }, []);
@@ -61,9 +60,7 @@ const Home: NextPage = () => {
                             gap: 2,
                           }}
                         >
-                          {[...Array(20)].map(() => (
-                            <UnicornCards />
-                          ))}
+                          <UnicornCards data={_}/>
                         </Box>
                       </ThemeProvider>
                     </Grid>
