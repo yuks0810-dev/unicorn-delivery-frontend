@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { CssBaseline } from "@mui/material";
 import Head from "next/head";
 
 import * as React from "react";
@@ -41,6 +42,7 @@ const Home: NextPage = () => {
 
   return (
     <React.StrictMode>
+      <CssBaseline />
       <Grid container spacing={3}>
         {data.map(
           (_, index): JSX.Element => (

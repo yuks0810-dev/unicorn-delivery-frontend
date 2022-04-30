@@ -1,13 +1,28 @@
 import type { NextPage } from "next";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import { Button, Container, Stack, TextField } from "@mui/material";
 
 const About: NextPage = () => {
   return (
     <div>
       <main>
         <h1>unicorn作成ページ</h1>
-        <form>
+        <Container maxWidth="sm" sx={{ pt: 5 }}>
+          <form action={`${process.env.API_ORIGIN}/unicorns`} method="post">
+            <Stack spacing={3}>
+              <TextField required label="名前" />
+              <TextField required label="タイプ" />
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                type="submit"
+              >
+                作成
+              </Button>
+            </Stack>
+          </form>
+        </Container>
+        {/* <form>
           <div>
             <TextField
               id="name"
@@ -22,7 +37,7 @@ const About: NextPage = () => {
           </div>
 
           <Button variant="contained" style={{margin: "10px 0px"}}>Contained</Button>
-        </form>
+        </form> */}
       </main>
     </div>
   );
