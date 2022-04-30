@@ -5,7 +5,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import SideBar from "../components/sideBar";
 import { lightTheme } from "../components/unicornCard";
 import UnicornCards from "../components/unicornCard";
 
@@ -42,35 +41,33 @@ const Home: NextPage = () => {
 
   return (
     <React.StrictMode>
-      <SideBar>
-        <Grid container spacing={3}>
-          {data.map(
-            (_, index): JSX.Element => (
-              <Grid item xs={12} key={index}>
-                <Container fixed maxWidth="xl">
-                  {[lightTheme].map((theme, index) => (
-                    <Grid item xs={10} key={index}>
-                      <ThemeProvider theme={theme}>
-                        <Box
-                          sx={{
-                            p: 2,
-                            bgcolor: "background.default",
-                            display: "grid",
-                            gridTemplateColumns: { md: "1fr 1fr" },
-                            gap: 2,
-                          }}
-                        >
-                          <UnicornCards data={_}/>
-                        </Box>
-                      </ThemeProvider>
-                    </Grid>
-                  ))}
-                </Container>
-              </Grid>
-            )
-          )}
-        </Grid>
-      </SideBar>
+      <Grid container spacing={3}>
+        {data.map(
+          (_, index): JSX.Element => (
+            <Grid item xs={12} key={index}>
+              <Container fixed maxWidth="xl">
+                {[lightTheme].map((theme, index) => (
+                  <Grid item xs={10} key={index}>
+                    <ThemeProvider theme={theme}>
+                      <Box
+                        sx={{
+                          p: 2,
+                          bgcolor: "background.default",
+                          display: "grid",
+                          gridTemplateColumns: { md: "1fr 1fr" },
+                          gap: 2,
+                        }}
+                      >
+                        <UnicornCards data={_} />
+                      </Box>
+                    </ThemeProvider>
+                  </Grid>
+                ))}
+              </Container>
+            </Grid>
+          )
+        )}
+      </Grid>
     </React.StrictMode>
   );
 };
