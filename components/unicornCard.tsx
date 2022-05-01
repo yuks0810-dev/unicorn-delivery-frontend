@@ -1,10 +1,8 @@
 import * as React from "react";
-import type { NextPage } from "next";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import { type } from "os";
+import { createTheme, styled } from "@mui/material/styles";
+import Image from "next/image";
 
 export const lightTheme = createTheme({ palette: { mode: "light" } });
 
@@ -17,11 +15,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 type Props = {
-  data: any
-}
+  data: any;
+};
 
-const UnicornCards: React.VFC<Props> = ({data}) => {
-  console.log(data, "here is data")
+const UnicornCards: React.VFC<Props> = ({ data }) => {
+  console.log(data, "here is data");
   return (
     <>
       <Item key={10} elevation={10}>

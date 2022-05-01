@@ -1,43 +1,100 @@
 import type { NextPage } from "next";
-import { Button, Container, Stack, TextField } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+import { Button, Container, Stack, TextField, MenuItem } from "@mui/material";
+import { FormControlLabel, Checkbox } from "@mui/material";
 
 const About: NextPage = () => {
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      checkBox: false,
+      name: "",
+      type: "",
+    },
+  });
+  const onSubmit = async (props: any) => {
+    const url = `${process.env.API_ORIGIN}/unicorns`;
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(props),
+    });
+  };
+
   return (
     <div>
       <main>
         <h1>unicorn作成ページ</h1>
-        <Container maxWidth="sm" sx={{ pt: 5 }}>
-          <form action={`${process.env.API_ORIGIN}/unicorns`} method="post">
-            <Stack spacing={3}>
-              <TextField required label="名前" />
-              <TextField required label="タイプ" />
-              <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                type="submit"
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          action={`${process.env.API_ORIGIN}/unicorns`}
+          method="post"
+        >
+          <Controller
+            control={control}
+            name="checkBox"
+            render={({ field: { value, onChange } }) => (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={value}
+                    onChange={onChange}
+                    color="primary"
+                  />
+                }
+                label="チェックボックス"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="名前"
+                fullWidth
+                margin="normal"
+                placeholder="unicorn name"
+                id="name"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="種類"
+                fullWidth
+                margin="normal"
+                id="type"
+                select
               >
-                作成
-              </Button>
-            </Stack>
-          </form>
-        </Container>
-        {/* <form>
-          <div>
-            <TextField
-              id="name"
-              label="name"
-              margin="normal"
-            />
-            <TextField
-              id="type"
-              label="type"
-              margin="normal"
-            />
-          </div>
-
-          <Button variant="contained" style={{margin: "10px 0px"}}>Contained</Button>
-        </form> */}
+                <MenuItem value="1">The European Unicorn</MenuItem>
+                <MenuItem value="2">
+                  The Bright European (Rainbow) Unicorn
+                </MenuItem>
+                <MenuItem value="3">Eastern European Unicorn</MenuItem>
+                <MenuItem value="4">Straight-Horned Unicorn</MenuItem>
+                <MenuItem value="5">The Qilin – The Chinese Unicorn</MenuItem>
+                <MenuItem value="6">The Nightmare</MenuItem>
+                <MenuItem value="7">
+                  The Magicorns – Most Powerful Unicorns
+                </MenuItem>
+                <MenuItem value="8">The Pegasus</MenuItem>
+                <MenuItem value="9">The High-Flying Unicorn</MenuItem>
+              </TextField>
+            )}
+          />
+          <Button variant="contained" color="primary" type="submit">
+            作成
+          </Button>
+        </form>
       </main>
     </div>
   );
